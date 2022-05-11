@@ -12,6 +12,7 @@ Línguagens e Frameworks utilizados durante este desafio:
 -MongoDB
 -Mongoose
 -dotenv
+-express-async-handler
 
 Instruções de instalação:
 
