@@ -1,0 +1,6 @@
+NODE_ENV=development
+
+DB_COLLECTION="mongodb+srv:<Admin>:<PassWord>@cluster1.m1su7.mongodb.net/<DataBase>"
+DB_USER=<YourUser>
+DB_PASS=<YourPassword>
+PORT=<ChooseAPortNumber>
