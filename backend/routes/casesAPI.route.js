@@ -1,5 +1,5 @@
 import express from "express"
-import getDailyCases, { getAvailableDates } from "../controllers/apiControllers.js";
+import getDailyCases, { getDates, getCount, getCumulative } from "../controllers/apiControllers.js";
 
 
 
@@ -7,8 +7,8 @@ const router = express.Router();
 
 
 router.route("/").get(getDailyCases);
-//router.route("/cases/:date/count").get(getCountryCases);
-// router.route("/cases/:date/cumulative").get(getAllBySum);
-router.route("/dates").get(getAvailableDates);
+router.route("/cases/:date/count").get(getCount);
+router.route("/cases/:date/cumulative").get(getCumulative);
+router.route("/dates").get(getDates);
 
 export default router
