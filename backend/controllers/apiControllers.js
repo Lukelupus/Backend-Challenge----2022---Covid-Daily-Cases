@@ -29,9 +29,9 @@ const getCount = asyncHandler(async (req, res) => {
           }, 
           {
               $group: {
-                _id: {
-                    location: "$location",
-                     },
+                _id: 
+                     "$location"
+                     ,
                 count: {
                     $addToSet: {variant: "$variant", cases: "$num_sequences"}
                             }
@@ -41,7 +41,7 @@ const getCount = asyncHandler(async (req, res) => {
           {
               $sort:{
                   _id: +1,
-                  variantes: +1
+                  count: +1
               }
           }
          ])
@@ -59,33 +59,27 @@ const getCount = asyncHandler(async (req, res) => {
 
 const getCumulative = asyncHandler(async (req, res) => {
         
-    const cases = await Cases.aggregate(
-     [{
-          $match: {
-              date : req.params.date
-            }
-      }, 
+    const cases = await Cases.aggregate([
       {
-          $group: {
-            _id: {
-                location: "$location"
-                 },
-            variantes: {
-                $addToSet: "$variant"
-                        },
-            cumulative: {
-                $sum:"$num_sequences_total"
-                    }
-                  }
-            
+          $match: {
+              date: {$lte:req.params.date}
+          }
+      },
+      { $group: {
+        _id:  {location: "$location" } ,
+        variant: { 
+            $addToSet: {variant: "$variant", cumulativeCases: {$sum:"$num_sequences_total"}} 
+        },
+        cumulativeCount: {$count:{}}
+        },
+       
       },
       {
-          $sort:{
-              _id: +1,
-              variantes: +1
+          $sort: {
+              _id: +1
           }
       }
-     ])
+    ])
 
  if(cases.length === 0) {
      res.status(400)
