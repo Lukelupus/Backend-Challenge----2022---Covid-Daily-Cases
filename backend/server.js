@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({extended: false}))
 
-const PORT = process.env.PORT || 9000
+const port = process.env.PORT || 9000
 
 
 connectDB();
@@ -21,6 +21,6 @@ connectDB();
 app.use("/", DailyCases)
 
 
-app.listen(PORT, () => {
+app.listen(port, () => {
     console.log("Port running on port " + PORT + "!")
 })
