@@ -22,5 +22,5 @@ app.use("/", DailyCases)
 
 
 app.listen(port, () => {
-    console.log("Port running on port " + port + "!")
+    console.log(`Port running on port ${port}!`)
 })
