@@ -1,5 +1,9 @@
 import express from "express"
-import getDailyCases, { getDates, getCount, getCumulative } from "../controllers/apiControllers.js";
+import getDailyCases, {
+    getDates,
+    getCount,
+    getCumulative
+} from "../controllers/apiControllers.js";
 
 
 
