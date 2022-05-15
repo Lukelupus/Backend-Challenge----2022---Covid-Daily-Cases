@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 9000
 
 connectDB();
 
-app.use("/api", DailyCases)
+app.use("/", DailyCases)
 
 
 app.listen(PORT, () => {

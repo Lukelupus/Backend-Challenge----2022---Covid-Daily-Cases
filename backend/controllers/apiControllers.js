@@ -13,10 +13,9 @@ const getDailyCases = asyncHandler (async (req, res) => {
 })
 
 
-//[GET]/cases/:date/count: 
-//Listar todos os registros da base de dados no dia selecionado, 
-//agrupados por país e separados por variante.
-// Acess = public
+//[GET]/cases/:date/count: numero de casos diários por variante
+// Access = public
+
 
 
 const getCount = asyncHandler(async (req, res) => {
@@ -53,30 +52,32 @@ const getCount = asyncHandler(async (req, res) => {
     res.status(200).json(cases)
 })
 
-//[GET]/cases/:date/cumulative: Listar todos os registros da base de dados, 
-//retornando a soma dos casos registrados de acordo com a data selecionada, 
-// agrupados por país e separados por variante.
+//[GET]/cases/:date/cumulative: numero de casos cumulativos
+// Access = public
 
 const getCumulative = asyncHandler(async (req, res) => {
-        
+      
+    
     const cases = await Cases.aggregate([
      
     {
         $match: {
-            date: {$lte: req.params.date}
+            date: 
+             {$lte: req.params.date}
+            
         }
-      },{$unwind: "$num_sequences"},
+      },
       {
         $group: {
-          _id: 
-               "$location",
-
-          cumulativeCount: {
-              $addToSet: {variant: "$variant"}
-                           },
-          cumulativeTotal: {
-              $count:{},
-          }
+          _id: {
+               location:"$location"},
+         cumulativeCases: {
+            $count:{}
+         },
+          casesPerVariant: {
+            $addToSet:{variant: "$variant", cumulative:  "$num_sequences" }
+                           }
+          
                 
                 }
           
@@ -84,7 +85,7 @@ const getCumulative = asyncHandler(async (req, res) => {
     {
         $sort:{
             _id: +1,
-            count: +1
+            Variants: +1
         }
     }
     ])
@@ -96,7 +97,7 @@ const getCumulative = asyncHandler(async (req, res) => {
 res.status(200).json(cases)
 })
 
-//[GET]/dates: Listar as datas disponíveis no dataset
+//[GET]/dates: datas disponíveis no dataset
 
 const getDates = asyncHandler(async (req, res) => {
     
