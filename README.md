@@ -25,5 +25,10 @@ Instruções de instalação:
 
 Instruções de uso:
   
+  [GET]"/": Nome do API;
+  [GET]"/dates": Lista de datas disponíveis para consulta;
+  [GET]"/cases/:date/cumulative": número cumulativo de casos, agrupados por país e separado por registro de variante;
+  [GET]"/cases/:date/count": Lista de registro de casos de variantes por dia, agrupado por país
   
+ This is a challenge by Coodesh
 
