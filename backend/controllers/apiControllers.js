@@ -60,25 +60,33 @@ const getCount = asyncHandler(async (req, res) => {
 const getCumulative = asyncHandler(async (req, res) => {
         
     const cases = await Cases.aggregate([
+     
+    {
+        $match: {
+            date: {$lte: req.params.date}
+        }
+      },{$unwind: "$num_sequences"},
       {
-          $match: {
-              date: {$lte:req.params.date}
+        $group: {
+          _id: 
+               "$location",
+
+          cumulativeCount: {
+              $addToSet: {variant: "$variant"}
+                           },
+          cumulativeTotal: {
+              $count:{},
           }
-      },
-      { $group: {
-        _id:  {location: "$location" } ,
-        variant: { 
-            $addToSet: {variant: "$variant", cumulativeCases: {$sum:"$num_sequences_total"}} 
-        },
-        cumulativeCount: {$count:{}}
-        },
-       
-      },
-      {
-          $sort: {
-              _id: +1
-          }
-      }
+                
+                }
+          
+    },
+    {
+        $sort:{
+            _id: +1,
+            count: +1
+        }
+    }
     ])
 
  if(cases.length === 0) {
