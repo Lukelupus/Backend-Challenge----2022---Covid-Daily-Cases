@@ -34,3 +34,6 @@ Instruções de uso:
 
  Deployment:
   https://coodesh-challenge-lucas.herokuapp.com/
+  
+  
+  Apresentação: https://www.loom.com/embed/b7d16c36d3174ee29afe7d6821c57d3b
